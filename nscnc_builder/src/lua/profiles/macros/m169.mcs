@@ -1,0 +1,10 @@
+function m169()
+	local Hreg, rc = mc.mcSignalGetHandle(mc.mcGetInstance(), mc.OSIG_RUNNING_GCODE)
+	local State, rc = mc.mcSignalGetState(Hreg)
+end
+
+
+
+if (mc.mcInEditor() == 1) then
+    m169()
+end

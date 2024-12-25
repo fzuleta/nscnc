@@ -1,0 +1,21 @@
+    function m9006()
+	 local inst = mc.mcGetInstance()
+	 local sigh = mc.mcSignalGetHandle(inst, mc.OSIG_OUTPUT20);
+     local sigState = mc.mcSignalGetState(sigh);
+    
+    if (sigState == 1) then 
+        mc.mcSignalSetState(sigh, 0);
+		mc.mcCntlSetLastError(inst, 'Laser Off')
+		--scr.SetProperty('btnClamp', 'Bg Color', '#FF0000');
+		--scr.SetProperty('btnClamp', 'Label', 'Tool\nClamped');
+    else 
+        mc.mcSignalSetState(sigh, 1);
+		mc.mcCntlSetLastError(inst, 'Laser On')
+		--scr.SetProperty('btnClamp', 'Bg Color', '#00FF00');
+		--scr.SetProperty('btnClamp', 'Label', 'Tool\nReleased');
+    end
+end
+
+if (mc.mcInEditor() == 1) then
+	m9006()
+end

@@ -1,0 +1,30 @@
+-- MCode Header used to load in all modules
+
+inst = mc.mcGetInstance("MachMotion Macro") -- Get the current instance
+MACH_DIRECTORY = mc.mcCntlGetMachDir(inst)
+
+function loadmodules()
+	inst = mc.mcGetInstance() --Get the instance of Mach4
+	local MachDirectory = mc.mcCntlGetMachDir(inst)
+	package.path = string.format("%s;%s/Modules/?.lua;%s/Modules/?.mcc",package.path,MachDirectory,MachDirectory)
+	package.loaded.mcMasterModule = nil
+	mm = require "mcMasterModule"
+
+	--wx.wxMessageBox("1")
+
+	package.loaded.WrapperModule = nil
+	w = require "WrapperModule"
+	
+	--wx.wxMessageBox("2")
+	
+	package.loaded.NS_CNC = nil
+	ns = require "NS_CNC"
+
+	--wx.wxMessageBox("3")
+end
+
+local is_ok, message = pcall(loadmodules)
+if not is_ok then
+	wx.wxMessageBox(tostring(message))
+	return
+end

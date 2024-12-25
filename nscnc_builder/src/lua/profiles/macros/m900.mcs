@@ -1,0 +1,18 @@
+-- Used to calculate the tool length
+
+
+function m900()
+	local inst = mc.mcGetInstance("m900 calculate tool length") --Get the instance of Mach
+	local is_ok, message = pcall(ns.AutoSetToolHeight, false, false)
+	if is_ok then
+		mc.mcCntlSetLastError(inst, message)
+	else
+		mc.mcCntlMacroAlarm(inst, 6, message)
+	end
+end
+
+
+--This function is used to allow the debugging to be done in the mcLua editor
+if (mc.mcInEditor() == 1) then
+    m900()
+end  

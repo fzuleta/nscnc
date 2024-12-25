@@ -1,0 +1,22 @@
+function m9001()
+local inst = mc.mcGetInstance()
+scr.VisionSetMode("MyVid", scr.VISION_CIRCLE)
+mc.mcCntlSetLastError(inst, "vis on")  
+mc.mcCntlGcodeExecuteWait(inst, "g04 p1.")
+
+ FindCenterNow = not FindCenterNow
+
+if(FindCenterNow == false) then 
+	-- Quick code to kill jogging 
+	local inst = mc.mcGetInstance()
+	rc = mc.mcJogVelocityStart(inst, 0, 0);
+	rc = mc.mcJogVelocityStart(inst, 0, 1);
+end
+
+scr.VisionSetMode("MyVid", scr.VISION_NONE)
+mc.mcCntlSetLastError(inst, "vis off") 
+mc.mcCntlGcodeExecuteWait(inst, "g04 p1.")
+end
+if (mc.mcInEditor() == 1) then
+    m9001()
+end 

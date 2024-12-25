@@ -1,0 +1,36 @@
+    function m9005()
+	local inst = mc.mcGetInstance()
+	local X1 = mc.mcCntlGetPoundVar(inst, 2000)
+    local X2 = mc.mcCntlGetPoundVar(inst, 2002)
+    local Y1 = mc.mcCntlGetPoundVar(inst, 2001)
+    local Y2 = mc.mcCntlGetPoundVar(inst, 2003)
+    
+	--find the scale
+	local ptlen = 2
+	
+	--local diff = math.sqrt(math.pow(Y1 - Y2^2) + (math.pow(X1 - X^2)))
+	local diff = math.sqrt(((Y1 - Y2) * (Y1-Y2)) + ((X1 - X2) * (X1 - X2)))
+	--local diff = (Y1 - Y2)
+	
+	local scale = (diff / ptlen)
+	rc = mc.mcCntlGcodeExecuteWait(inst, string.format ("G51 X%.2f Y%.2f", scale, scale))
+    mc.mcCntlSetLastError(inst, string.format("Scale Factor set: Factor = %.2f", scale)); 
+	
+	wx.wxMilliSleep(500)
+	
+	
+	
+	
+	--Subtract the start from the end point 
+	local xDelta = X2 - X1
+	local yDelta = Y2 - Y1
+	
+	local angle = math.atan (yDelta, xDelta)
+	angle = (angle * 180 / math.pi)
+	angle = (angle) + 90 -- I think because of the camera rotataion
+	rc = mc.mcCntlGcodeExecuteWait(inst, string.format ("G68 X0 Y0 R%.4f", angle))
+    mc.mcCntlSetLastError(inst, string.format("Plate align set: Angle = %.1f", angle)); 
+end
+if (mc.mcInEditor() == 1) then
+	m9005()
+end

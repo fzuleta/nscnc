@@ -1,0 +1,12 @@
+function m9000()
+local inst = mc.mcGetInstance()
+mc.mcCntlGcodeExecuteWait(inst, "M01")
+mc.mcCntlSetLastError(inst,'hit cycle start to continue')
+local hreg = mc.mcRegGetHandle(inst, 'iRegs0/FindCenter')
+mc.mcRegSetValue(hreg, 1); -- Setting this to one we are telling the screen that we would like to find the center of the circle 
+--mc.mcCntlGcodeExecuteWait(inst, 'g04 p5.')
+end
+
+if (mc.mcInEditor() == 1) then
+    m9000()
+end 

@@ -1,0 +1,30 @@
+---------------------------------------------------------------
+--NOTE: Must use Mach4 version released after 12/15/2021 (For C Probe functionality)
+--
+--Setup Instructions:
+--	Must Create and choose initial values for the following registers at Configure->Plugins->RegFile (nonpersistent):
+
+--	Must also setup the following signals at Configure->Control->Input/Output Signals
+--		Outputs
+--			Output32	- Collet Output (Grab/Release tool)
+--
+--		Inputs
+--			Probe		- Tool Magazine Open
+--			Probe1		- Height Sensor
+--			Probe2		- Tool Magazine Close
+---------------------------------------------------------------
+
+function m6()
+	local inst = mc.mcGetInstance("m6 Tool Change Macro") --Get the instance of Mach
+	local is_ok, message = pcall(ns.ToolChange)
+	if is_ok then
+		mc.mcCntlSetLastError(inst, message)
+	else
+		mc.mcCntlMacroAlarm(inst, 6, message)
+	end
+end
+
+--This function is used to allow the debugging to be done in the mcLua editor
+if (mc.mcInEditor() == 1) then
+    m6()
+end  

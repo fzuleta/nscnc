@@ -1,0 +1,19 @@
+function m9003()
+local inst = mc.mcGetInstance()
+local Mx = mc.mcAxisGetMachinePos(inst, mc.X_AXIS)
+Mx = (Mx - 2.4715)
+local My = mc.mcAxisGetMachinePos(inst, mc.Y_AXIS)
+My = (My - .4352)
+mc.mcCntlSetLastError(inst, 'Moving to start point')
+rc = mc.mcCntlGcodeExecuteWait(inst, string.format ("G10 L2 P1 X%.4f Y%.4f" , Mx, My))
+mc.mcCntlSetLastError(inst,  'G54 X0 Y0'); 
+
+
+    
+
+
+end
+
+if (mc.mcInEditor() == 1) then
+    m9003()
+end 

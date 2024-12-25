@@ -1,0 +1,31 @@
+{
+  "compilerOptions": {
+    /* Language and output settings */
+    "target": "ES2020",               // Choose your target ECMAScript version
+    "module": "CommonJS",             // CommonJS is standard for most Node projects
+    "outDir": "dist",                 // Where compiled .js files go
+    "rootDir": "src",                 // Your main source code folder
+
+    /* Strict type-checking options */
+    "strict": true,                   // Enable all strict type checks
+    "noImplicitAny": true,            // Disallow the 'any' type unless explicitly stated
+    "strictNullChecks": true,         // Ensure that null and undefined are handled explicitly
+
+    /* Module resolution */
+    "moduleResolution": "node",       // Common module resolution strategy for Node
+    "esModuleInterop": true,          // Enables synthetic default imports for CommonJS
+    "skipLibCheck": true,             // Skip checking .d.ts files for faster builds (optional)
+
+    /* Source maps (optional) */
+    "sourceMap": true,                // If you want to debug TS in Node or IDE debuggers
+
+    /* Additional Options (optional) */
+    "forceConsistentCasingInFileNames": true
+  },
+  "include": [
+    "src/**/*"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}

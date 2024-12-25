@@ -1,0 +1,10 @@
+function m9002()
+local inst = mc.mcGetInstance()
+mc.mcCntlSetLastError(inst, 'Moving to start point')
+
+rc = mc.mcCntlGcodeExecuteWait(inst, "G53 G00 X12.1 Y4.")
+end
+
+if (mc.mcInEditor() == 1) then
+    m9002()
+end 

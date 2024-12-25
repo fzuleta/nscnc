@@ -1,0 +1,4 @@
+function m69()
+	rc = mc.mcToolPathGenerate(mc.mcGetInstance())
+	rc = mc.mcCntlSetLastError(mc.mcGetInstance(), 'tool path regen')
+end
